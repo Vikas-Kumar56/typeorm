@@ -3,17 +3,17 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity('posts')
 export class Posts {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id!: number;
 
   @Column('varchar', { length: 50 })
-  author: string;
+  author!: string;
 
   @Column('varchar', { length: 50 })
-  title: string;
+  title!: string;
 
   @Column('varchar', { length: 255 })
-  body: string;
+  body!: string;
 
   @Column('boolean', { default: false })
-  isPublished: boolean;
+  isPublished!: boolean;
 }
