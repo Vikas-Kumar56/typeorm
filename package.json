@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start:build": "tsc -w",
-    "start:run": "nodemon ./build/index.js",
+    "start:run": "node ./build/index.js",
     "start": "concurrently npm:start:*",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "12.7.0"
   },
   "keywords": [],
   "author": "",
