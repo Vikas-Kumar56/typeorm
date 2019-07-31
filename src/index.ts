@@ -69,6 +69,9 @@ const main = async () => {
     post.author = author;
     post.body = body;
     post.title = title;
+    if (isPublished) {
+      post.isPublished = isPublished;
+    }
     const postRepository = getRepository(Posts);
     await postRepository.save(post);
 
