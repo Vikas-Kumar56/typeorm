@@ -26,7 +26,7 @@ const main = async () => {
     entities: [Posts]
   });
 
-  app.get('/', async (req, res) => {
+  app.get('/api/posts', async (req, res) => {
     const postRepository = getRepository(Posts);
     const posts = await postRepository.find();
     res.json({
@@ -34,10 +34,31 @@ const main = async () => {
     });
   });
 
+  app.get('/api/posts/:id', async (req, res) => {
+    const postId = req.params.id;
+    console.log(postId);
+    const postRepository = getRepository(Posts);
+    const post = await postRepository.findOne({
+      where: {
+        id: postId
+      }
+    });
+    if (!post) {
+      return res.status(404).json({
+        error: {
+          message: 'post id is not valid'
+        }
+      });
+    }
+    res.status(200).json({
+      data: post
+    });
+  });
+
   app.post('/api/post', async (req, res) => {
     const { title, author, body, isPublished } = req.body;
     if (!title || !author || !body) {
-      return res.json({
+      return res.status(422).json({
         error: {
           message: 'please provide all field title,author,body'
         }
@@ -51,7 +72,7 @@ const main = async () => {
     const postRepository = getRepository(Posts);
     await postRepository.save(post);
 
-    res.json({
+    res.status(200).json({
       data: post
     });
   });
